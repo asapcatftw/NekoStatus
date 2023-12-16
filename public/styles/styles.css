@@ -19,8 +19,6 @@ header h1 {
 .container {
   max-width: 800px;
   margin: 20px auto;
-  background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
 }
@@ -53,4 +51,17 @@ header h1 {
 
 .status-down {
   color: #dc3545;
+}
+
+footer {
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+footer p {
+  color: #000000;
+  text-decoration: none;
 }
