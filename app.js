@@ -12,11 +12,24 @@ document.addEventListener('DOMContentLoaded', () => {
       componentDiv.className = 'component';
       componentDiv.innerHTML = `
         <h2>${component.name}</h2>
-        <p>Status: ${component.status}</p>
+        <p>Status: <span class="${getStatusColorClass(component.status)}">${component.status}</span></p>
         <p>${component.details}</p>
         <p>Last Updated: ${new Date(component.lastUpdated).toLocaleString()}</p>
       `;
       componentsSection.appendChild(componentDiv);
     });
+  }
+  
+  function getStatusColorClass(status) {
+    switch (status.toLowerCase()) {
+      case 'operational':
+        return 'status-green';
+      case 'degraded':
+        return 'status-yellow';
+      case 'down':
+        return 'status-red';
+      default:
+        return 'status-gray';
+    }
   }
   

@@ -1,0 +1,42 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+  }
+  
+  .components {
+    max-width: 800px;
+    margin: 2em auto;
+  }
+  
+  .component {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1em;
+    margin-bottom: 1em;
+    background-color: white;
+  }
+  
+  .status-green {
+    color: green;
+  }
+  
+  .status-yellow {
+    color: yellow;
+  }
+  
+  .status-red {
+    color: red;
+  }
+  
+  .status-gray {
+    color: gray;
+  }
+  
