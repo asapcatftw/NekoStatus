@@ -4,8 +4,8 @@ FROM nginx:alpine
 # Copy your web app files to the Nginx document root
 COPY public/ /usr/share/nginx/html
 
+# Copy the services folder into the container
+COPY services/ /usr/share/nginx/html/services
+
 # Expose port 80
 EXPOSE 80
-
-# Command to start Nginx (it starts automatically in the official Nginx image)
-CMD ["nginx", "-g", "daemon off;"]
