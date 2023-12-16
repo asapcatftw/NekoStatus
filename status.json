@@ -1,0 +1,17 @@
+{
+    "components": [
+      {
+        "name": "Web Server",
+        "status": "Operational",
+        "details": "All systems are functioning properly.",
+        "lastUpdated": "2023-12-16T12:30:00Z"
+      },
+      {
+        "name": "Database",
+        "status": "Degraded",
+        "details": "High traffic causing slower response times.",
+        "lastUpdated": "2023-12-16T11:45:00Z"
+      }
+    ]
+  }
+  
