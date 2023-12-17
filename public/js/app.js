@@ -38,42 +38,58 @@ $(document).ready(function () {
     });
   }
 
-  // Function to update the status container with service status
-  function updateStatus(statusData) {
-    var statusContainer = $('#status-container');
+  // Function to fetch incidents from JSON file
+  function fetchIncidents() {
+    $.ajax({
+      url: 'incidents/incidents.json',
+      dataType: 'json',
+      success: function (data) {
+        updateIncidents(data);
+      },
+      error: function () {
+        console.error('Error fetching incidents.');
+      }
+    });
+  }
+// Function to update the status container with service status
+function updateStatus(statusData) {
+  var statusContainer = $('#status-container');
 
-    var statusClass = getStatusClass(statusData.status);
+  var statusClass = getStatusClass(statusData.status);
 
-    var serviceCardHtml = `
-      <div class="card mb-3">
-        <div class="card-body p-2">
-          <div class="row">
-            <div class="col-8">
-              <h6 class="card-title mb-1 font-weight-bold">${statusData.name}</h6>
-            </div>
-            <div class="col-4 text-end">
-              <p class="card-text m-0"><span class="${statusClass}">${statusData.status}</span></p>
-            </div>
+  var badgeClass = getBadgeClass(statusData.status);
+
+  var serviceCardHtml = `
+    <div class="card mb-3 ${statusClass} ${getHoverClass(statusData.status)}">
+      <div class="card-body p-2">
+        <div class="row">
+          <div class="col-8">
+            <h6 class="card-title mb-1 font-weight-bold"><strong>${statusData.name}</strong></h6>
+          </div>
+          <div class="col-4 text-end">
+            <span class="badge ${badgeClass}">${statusData.status}</span>
           </div>
         </div>
+        <p class="card-text pt-1">${statusData.details}</p>
       </div>
-    `;
+    </div>
+  `;
 
-    if (statusData.status.toLowerCase() === 'down' || statusData.status.toLowerCase() === 'degraded') {
-      statusContainer.prepend(serviceCardHtml);
-    } else {
-      statusContainer.append(serviceCardHtml);
-    }
+  if (statusData.status.toLowerCase() === 'down' || statusData.status.toLowerCase() === 'degraded') {
+    statusContainer.prepend(serviceCardHtml);
+  } else {
+    statusContainer.append(serviceCardHtml);
   }
-
+}
   // Function to update the maintenance status
   function updateMaintenanceStatus(maintenanceData) {
     var maintenanceStatusContainer = $('#maintenance-status');
 
     var statusClass = getStatusClass(maintenanceData.status);
+    var badgeClass = getBadgeClass(maintenanceData.status);
 
     var maintenanceStatusHtml = `
-      <div class="card mb-3 border-primary">
+      <div class="card mb-3 ${statusClass} border-primary">
         <div class="card-header bg-primary text-white">Maintenance</div>
         <div class="card-body p-2">
           <div class="row">
@@ -81,7 +97,7 @@ $(document).ready(function () {
               <h6 class="card-title mb-1 font-weight-bold">Details: ${maintenanceData.details}</h6>
             </div>
             <div class="col-4 text-end">
-              <p class="card-text m-0"><span class="${statusClass}">${maintenanceData.status}</span></p>
+              <span class="badge ${badgeClass}">${maintenanceData.status}</span>
             </div>
           </div>
           <p class="card-text"><strong>Start Time:</strong> ${new Date(maintenanceData.startTime).toLocaleString()}</p>
@@ -94,6 +110,26 @@ $(document).ready(function () {
     maintenanceStatusContainer.append(maintenanceStatusHtml);
 
     initializeCountdownTimer(maintenanceData.startTime, maintenanceData.endTime);
+  }
+
+  // Function to update incidents
+  function updateIncidents(incidentsData) {
+    var incidentsContainer = $('#incidents-container');
+
+    incidentsData.forEach(function (incident) {
+      var incidentHtml = `
+        <div class="card mb-3 border-secondary">
+          <div class="card-header bg-secondary text-white">Incident</div>
+          <div class="card-body p-2">
+            <h6 class="card-title mb-1 font-weight-bold">Details: ${incident.details}</h6>
+            <p class="card-text"><strong>Start Time:</strong> ${new Date(incident.startTime).toLocaleString()}</p>
+            <p class="card-text"><strong>End Time:</strong> ${new Date(incident.endTime).toLocaleString()}</p>
+          </div>
+        </div>
+      `;
+
+      incidentsContainer.append(incidentHtml);
+    });
   }
 
   // Function to initialize the countdown timer
@@ -132,11 +168,34 @@ $(document).ready(function () {
   function getStatusClass(status) {
     switch (status.toLowerCase()) {
       case 'operational':
-        return 'text-success';
+        return 'operational';
+      case 'maintenance':
+        return 'maintenance';
       case 'degraded':
-        return 'text-warning';
+        return 'degraded';
       case 'down':
-        return 'text-danger';
+        return 'down';
+      default:
+        return '';
+    }
+  }
+
+  // Function to add hover class based on status
+  function getHoverClass(status) {
+    return 'card-hover-' + status.toLowerCase();
+  }
+
+  // Function to map status to badge color class
+  function getBadgeClass(status) {
+    switch (status.toLowerCase()) {
+      case 'operational':
+        return 'bg-success-subtle border-success-subtle text-success-emphasis';
+      case 'maintenance':
+        return 'bg-info-subtle border-info-subtle text-info-emphasis';
+      case 'degraded':
+        return 'bg-warning-subtle border-warning-subtle text-warning-emphasis';
+      case 'down':
+        return 'bg-danger-subtle border-danger-subtle text-danger-emphasis';
       default:
         return '';
     }
@@ -150,4 +209,5 @@ $(document).ready(function () {
   services.forEach(function (service) {
     fetchServiceStatus(service);
   });
+  fetchIncidents();
 });

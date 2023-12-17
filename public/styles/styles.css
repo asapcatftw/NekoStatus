@@ -1,0 +1,34 @@
+/* styles.css */
+
+.card:hover {
+transition: all 0.3s ease-in-out;
+}
+  
+/* Operational */
+.card.operational:hover {
+background-color: #e6f7e6; /* Light green background */
+color: #4caf50; /* Green font color */
+border-color: #4caf50; /* Green border color */
+}
+
+/* Maintenance */
+.card.maintenance:hover {
+background-color: #e6f7ff; /* Light blue background */
+color: #007bff; /* Blue font color */
+border-color: #007bff; /* Blue border color */
+}
+
+/* Degraded */
+.card.degraded:hover {
+background-color: #fff3e6; /* Light orange background */
+color: #ff9800; /* Orange font color */
+border-color: #ff9800; /* Orange border color */
+}
+
+/* Down */
+.card.down:hover {
+background-color: #ffe6e6; /* Light red background */
+color: #f44336; /* Red font color */
+border-color: #f44336; /* Red border color */
+}
+  
