@@ -1,7 +1,7 @@
 {
     "name": "Notification Service",
-    "status": "Operational",
-    "details": "Sending push notifications and alerts as expected.",
+    "status": "Down",
+    "details": "Issue withe the SMTP service.",
     "lastUpdated": "2023-12-16T13:30:00Z"
   }
   
