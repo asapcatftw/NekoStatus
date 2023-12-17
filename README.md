@@ -1,5 +1,6 @@
-# Neko Page Project
+# Neko Status Page
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ae317f21-c694-474d-aae4-1e2432576b9d/deploy-status)](https://app.netlify.com/sites/lustrous-druid-48702d/deploys)
 
 This is a status page project built with HTML, CSS, and JavaScript. It uses Bootstrap for styling and layout.
